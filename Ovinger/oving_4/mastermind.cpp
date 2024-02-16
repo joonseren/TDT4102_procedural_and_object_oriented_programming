@@ -35,12 +35,13 @@ void playMastermind() {
     }
 
     char playAgain;
+
     cout << "Vil du spille på nytt? Y/N" << endl;
     cin >> playAgain;
     if (playAgain == 'Y') {
         playMastermind();
     } else {
-        cout << "Good bye fucker!" << endl;
+        cout << "Good bye!" << endl;
     }
 
 
