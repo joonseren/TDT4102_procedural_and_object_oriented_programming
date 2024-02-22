@@ -1,0 +1,6 @@
+AIST1001 | Automatisering_intro
+ELET1001 | elektriske
+IMAT1001 | Matematikk_for_ingeniørfag_1
+INGT1001 | Programmering_numerikk_sikkerhet
+TDT4102 | Prosedyre- og objekt-orientert programmering
+kretser | into
