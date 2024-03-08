@@ -5,7 +5,9 @@
 
 int main() {
     
-    bouncingBall();
+    //bouncingBall();
+    inputToFile();
+    lineNumberFile();
 
     return 0;
 }

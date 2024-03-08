@@ -5,6 +5,7 @@
 #include "AnimationWindow.h"
 #include "bouncingBall.h"
 #include <map>
+#include "Color.h"
 
 constexpr Point BOUNCE_WINDOW_TOP_LEFT{50, 50};
 constexpr int BOUNCE_WINDOW_WIDTH{800}; 
@@ -12,19 +13,22 @@ constexpr int BOUNCE_WINDOW_HEIGHT{500};
 
 
 // 4a)
-map<int, Color> colorMap {
-    {1, Color::blue},
-    {2, Color::red},
-    {3, Color::green},
-    {4, Color::yellow},
-};
+
 
 
 void bouncingBall() {
     AnimationWindow window{BOUNCE_WINDOW_TOP_LEFT.x, BOUNCE_WINDOW_TOP_LEFT.y, 
                            BOUNCE_WINDOW_WIDTH, BOUNCE_WINDOW_HEIGHT, "Bouncing ball"};
     
-    const int radius{30};
+    
+    map<int, Color> colorMap {
+        {1, Color::blue},
+        {2, Color::red},
+        {3, Color::green},
+        {4, Color::yellow},
+    };
+    
+    const int radius{40};
     int alpha{1};
     int velocity{2};
     Color colour_up{Color::blue};
@@ -60,7 +64,7 @@ void bouncingBall() {
         increment_y = 2*velocity * sin(alpha);
 
         // movement i x-direction
-        if ((increment_x + x) > window.width()) {
+        if ((increment_x + x) > (window.width() + radius)) {
             // reached right side - wrap around to the leftmost
             x = 0;
             // increment counter which counts number of full left-to-right passes
@@ -89,22 +93,19 @@ void bouncingBall() {
 
         // movement i y-direction
         if (((count_bounce_top + count_bounce_bottom) % 2) == 0) {
-            if (y < 0) {
+            if (y < radius) {
                 count_bounce_top++;
-                color = colour_down;
-                
+                color = colour_down; 
             }
             y -= increment_y;
 
             
         } else {
-            if(y > BOUNCE_WINDOW_HEIGHT) {
+            if(y > (BOUNCE_WINDOW_HEIGHT - radius)) {
                 count_bounce_bottom++;
                 color = colour_up;
             }
-            // move downward
             y += increment_y;
-
 
         }
         window.draw_circle({x, y}, radius, color);
@@ -120,3 +121,4 @@ istream& operator>>(istream& is, Config& cfg) {
     cfg = {tmpUp, tmpDown, tmpVel};
     return is;
 }
+

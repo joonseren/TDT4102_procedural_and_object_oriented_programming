@@ -19,5 +19,6 @@ public:
     void drawDealerCard();
     void printPlayerHand() const;
     void printDealerHand() const;
+    void printDealerOneHand() const;
     void playGame();
 };

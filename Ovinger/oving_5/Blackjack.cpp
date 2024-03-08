@@ -74,6 +74,10 @@ void Blackjack::printDealerHand() const {
     cout << endl;
 }
 
+void Blackjack::printDealerOneHand() const {
+    cout << dealerHand.front().toString() << ", *******" << endl;
+}
+
 void Blackjack::playGame() {
     cout << "Velkommen til BLACKJACK!" << endl;
     cout << "—————————————————————————————————————————————" << endl;
@@ -90,8 +94,8 @@ void Blackjack::playGame() {
     printPlayerHand();
     cout << "Din score er: " << playerHandSum << endl;
     cout << "Dealer sin hånd er: ";
-    printDealerHand();
-    cout << "Dealer sin score er: " << dealerHandSum << endl;
+    printDealerOneHand();
+    //cout << "Dealer sin score er: " << dealerHandSum << endl;
     // spørre om spilleren vil trekke et nytt kort
     while (playerHandSum < 21) {
         if (askPlayerDrawCard()) {
@@ -116,5 +120,7 @@ void Blackjack::playGame() {
     } else {
         cout << "It is a tie" << endl;
     }
+
+
 }
 

@@ -1,0 +1,9 @@
+1:   Hei
+2:   mitt
+3:   navn
+4:   er
+5:   jonas
+6:   jeg
+7:   sitter
+8:   med
+9:   knut
