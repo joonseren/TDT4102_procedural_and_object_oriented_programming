@@ -2,6 +2,8 @@
 
 #include "Matrix.h"
 
+
+
 // 2b)
 Matrix::Matrix(int nRows, int nColumns) : rows(nRows), columns(nColumns) {
     assert(rows >= 0 && columns >= 0);
@@ -51,12 +53,12 @@ void Matrix::set(int row, int col, double value) {
 // Valgfri, gidder ikke å svare #yolo #lol
 
 // 2e)
-std::string Matrix::getRows() const {
-    return &"Rader: " [rows];
+int Matrix::getRows() const {
+    return rows;
 }
 
-std::string Matrix::getColumns() const {
-    return "Kolonner: " + columns; 
+int Matrix::getColumns() const {
+    return columns;
 }
 
 // 2f)
@@ -68,4 +70,43 @@ std::ostream& operator<<(std::ostream& os, const Matrix& mtrx) {
     }
     return os;
 }
+
+
+// 4a)
+Matrix::Matrix(const Matrix& other) : rows(other.rows), columns(other.columns) {
+    matrixData = new double*[rows];
+
+    for (int i{0}; i < rows; i++) {
+        matrixData[i] = new double[columns];
+        for (int j{0}; j < columns; j++) {
+            matrixData[i][j] = other.matrixData[i][j]; 
+        }
+    }
+}
+
+// 4b)
+Matrix& Matrix::operator=(const Matrix rhs) {
+    for (int i{0}; i < rows; i++) {
+        for (int j{0}; j < columns; j++) {
+            std::swap(matrixData[i][j],  rhs.matrixData[i][j]);
+        }
+    }
+    return *this;
+}
+
+// 5a)
+Matrix& Matrix::operator+=(const Matrix& rhs) {
+
+    assert(this -> getRows() == rhs.getRows() && this -> getColumns() == rhs.getColumns()); 
+    for (int i{0}; i < rows; i++) {
+        for (int j{0}; j < columns; j++) {
+            this -> matrixData[i][j] += rhs.matrixData[i][j];
+        }
+    
+    }
+    return *this;
+}
+
+
+
 

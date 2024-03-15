@@ -3,9 +3,10 @@
 #pragma once
 #include <iostream>
 #include <cassert>
+#include <utility>
 
 
-// 2a), b), c), d), e), f), g)
+// 2, 4, 5
 class Matrix {
 private:
     double** matrixData;
@@ -18,7 +19,10 @@ public:
     ~Matrix();
     double get(int row, int col) const;
     void set(int row, int col, double value);
-    std::string getRows() const;
-    std::string getColumns() const;
+    int getRows() const;
+    int getColumns() const;
     friend std::ostream& operator<<(std::ostream& os, const Matrix& mtrx);
+    Matrix(const Matrix& other);
+    Matrix& operator=(const Matrix rhs);
+    Matrix& operator+=(const Matrix& rhs);
 };
