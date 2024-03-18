@@ -1,0 +1,5 @@
+Oppgave 2d)
+    - Fordi den ikke skal endre på medlemsvariablene, den skal kun skrive ut.
+    - Const gjør at verdien ikke endres under kompilering, hvis den ikke skal endre verdien til variabelen er det god praksis å bruke const.
+      Hvis man skal endre på verdiene til parameteren, bør man ikke bruke const.
+
