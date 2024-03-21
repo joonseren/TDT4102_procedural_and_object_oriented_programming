@@ -3,3 +3,6 @@ Oppgave 2d)
     - Const gjør at verdien ikke endres under kompilering, hvis den ikke skal endre verdien til variabelen er det god praksis å bruke const.
       Hvis man skal endre på verdiene til parameteren, bør man ikke bruke const.
 
+
+Oppgave 3e)
+    Det skjer automatisk av c++, som lager en default destrukør for oss.
