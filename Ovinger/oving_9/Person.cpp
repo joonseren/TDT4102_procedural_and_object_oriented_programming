@@ -12,6 +12,12 @@ std::string Person::getEmail() {
 void Person::setEmail(std::string inputEmail) {
     email = inputEmail;
 }
+
+void Person::setName(std::string inputName) {
+    name = inputName;
+}
+
+
 bool Person::hasAvailableSeats() {
     if (personCar != nullptr && personCar -> hasFreeSeats()) {
         return true;

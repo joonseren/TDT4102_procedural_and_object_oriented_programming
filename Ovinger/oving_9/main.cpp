@@ -25,6 +25,8 @@ int main() {
 
     MeetingWindow mwin(50, 50, 1000, 500, "GUI - Campus Samkjøring NTNU - EcoTrans AS");
     mwin.wait_for_close();
+    mwin.newPerson();
+    mwin.printPeople();
 
     return 0;
 }

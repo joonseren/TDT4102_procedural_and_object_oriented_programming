@@ -18,6 +18,7 @@ public:
     std::string getName();
     std::string getEmail();
     void setEmail(std::string inputEmail);
+    void setName(std::string inputName);
     bool hasAvailableSeats();
     friend std::ostream& operator<<(std::ostream& os, const Person& p);
 };
