@@ -45,7 +45,7 @@ bool MeetingWindow::newPerson() {
     int seats = 0;
     bool validSeats = false;
 
-    /*
+    
     if (!seatText.empty()) {
         try {
             seats = std::stoi(seatText);
@@ -54,15 +54,15 @@ bool MeetingWindow::newPerson() {
             std::cout << "Ugyldig antall seter: " << e.what() << std::endl;
         }
     }
-    */
+    
 
     if (!validSeats) {
         std::cout << "Oppretter person uten bil." << std::endl;
-        people.emplace_back(std::make_shared<Person>(name, email));
+        people.emplace_back(new Person(name, email));
     } else {
         std::cout << "Oppretter person med bil." << std::endl;
         auto car = std::make_unique<Car>(seats);
-        people.emplace_back(std::make_shared<Person>(name, email, std::move(car)));
+        people.emplace_back(new Person(name, email, std::move(car)));
     }
 
     personName.setText("");
@@ -82,9 +82,9 @@ void MeetingWindow::cb_clear() {
 void MeetingWindow::printPeople() {
     std::cout << "Participant overview:" << std::endl;
     std::cout << "—————————————————————\n" << std::endl;
-    if (newPerson()) {
-        for (int i{0}; i < people.size(); i++) {
-            std::cout << "Place number " << (i + 1) << ":\n" << *people.at(i) << std::endl; 
-        }
+
+    for (const auto& person : people) {
+        std::cout << *person << "\n" <<std::endl; 
     }
+
 }
