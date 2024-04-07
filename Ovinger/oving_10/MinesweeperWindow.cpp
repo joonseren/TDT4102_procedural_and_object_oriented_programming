@@ -15,7 +15,27 @@ MinesweeperWindow::MinesweeperWindow(int x, int y, int width, int height, int mi
 			add(*temp); 
 		}
 	}
-	// Legg til miner paa tilfeldige posisjoner
+	// Legg til miner på tilfeldige posisjoner
+
+	int i = 0;
+	while (i < mines) {
+		std::random_device rd;
+		std::default_random_engine generator(rd());
+		std::uniform_int_distribution <int> distribution(0, tiles.size());
+		int minePosition = distribution(generator); 
+
+		if (!tiles.at(minePosition) -> getIsMine()) {
+			tiles.at(minePosition) -> setIsMine(true);
+			tiles.at(minePosition) -> setButtonColor(TDT4102::Color::red);
+		i++;
+		}
+	}
+
+	
+
+
+
+	
 }
 
 vector<Point> MinesweeperWindow::adjacentPoints(Point xy) const {
@@ -36,9 +56,11 @@ vector<Point> MinesweeperWindow::adjacentPoints(Point xy) const {
 }
 
 void MinesweeperWindow::openTile(Point xy) {
+	MinesweeperWindow::at(xy) -> open();
 }
 
 void MinesweeperWindow::flagTile(Point xy) {
+	MinesweeperWindow::at(xy) -> flag();
 }
 
 //Kaller openTile ved venstreklikk og flagTile ved hoyreklikk

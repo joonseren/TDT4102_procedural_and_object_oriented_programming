@@ -1,13 +1,13 @@
 #pragma once
 #include "AnimationWindow.h"
 #include "Tile.h"
+#include <random>
 
 using namespace std;
 using namespace TDT4102;
 
 // Minesweeper GUI
-class MinesweeperWindow : public AnimationWindow
-{
+class MinesweeperWindow : public AnimationWindow {
 public:
 	// storrelsen til hver tile
 	static constexpr int cellSize = 30;

@@ -2,12 +2,15 @@
 #include "AnimationWindow.h"
 #include "widgets/Button.h"
 #include <map>
+#include <iostream>
+
+
 
 // De forskjellige tilstandene en Tile kan vaere i
 enum class Cell { closed, open, flagged }; 
 
-class Tile : public TDT4102::Button
-{
+class Tile : public TDT4102::Button {
+private:
 	Cell state = Cell::closed;
 	void set_label(std::string s) { this->setLabel(s);}
 	void set_label_color(TDT4102::Color c) {this->setLabelColor(c);}
@@ -22,11 +25,13 @@ class Tile : public TDT4102::Button
 												{7, TDT4102::Color::dark_red},
 												{8, TDT4102::Color::gold}};
 
+	bool isMine = false;
 public:
 	Tile(TDT4102::Point pos, int size);
-
+	bool getIsMine();
+	void setIsMine(bool input);
 	void open();
 	void flag();
-
 	Cell getState() const { return state; };
+	void setAdjMines(int n);
 };
