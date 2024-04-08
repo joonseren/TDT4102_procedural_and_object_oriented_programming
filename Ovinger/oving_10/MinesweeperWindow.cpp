@@ -26,16 +26,10 @@ MinesweeperWindow::MinesweeperWindow(int x, int y, int width, int height, int mi
 
 		if (!tiles.at(minePosition) -> getIsMine()) {
 			tiles.at(minePosition) -> setIsMine(true);
-			tiles.at(minePosition) -> setButtonColor(TDT4102::Color::red);
+			tiles.at(minePosition) -> setButtonColor(TDT4102::Color::sky_blue);
 		i++;
 		}
 	}
-
-	
-
-
-
-	
 }
 
 vector<Point> MinesweeperWindow::adjacentPoints(Point xy) const {
@@ -56,11 +50,28 @@ vector<Point> MinesweeperWindow::adjacentPoints(Point xy) const {
 }
 
 void MinesweeperWindow::openTile(Point xy) {
+	if (MinesweeperWindow::at(xy) -> getState() != Cell::closed) {
+		return;
+	}
+
 	MinesweeperWindow::at(xy) -> open();
+	if (!MinesweeperWindow::at(xy) -> getIsMine()) {
+		std::vector<Point> adjPoints = MinesweeperWindow::adjacentPoints(xy);
+		int mines = MinesweeperWindow::countMines(adjPoints);
+		if (mines > 0) {
+			MinesweeperWindow::at(xy) -> setAdjMines(mines);
+		} else if (mines == 0) {
+			for (const auto& tile : adjPoints) {
+				MinesweeperWindow::openTile(tile);
+			}
+		}
+	} 
 }
 
 void MinesweeperWindow::flagTile(Point xy) {
-	MinesweeperWindow::at(xy) -> flag();
+	if (MinesweeperWindow::at(xy) -> getState() != Cell::open) {
+		MinesweeperWindow::at(xy) -> flag();
+	}
 }
 
 //Kaller openTile ved venstreklikk og flagTile ved hoyreklikk
@@ -78,3 +89,15 @@ void MinesweeperWindow::cb_click() {
 		flagTile(xy);
 	}
 }
+
+int MinesweeperWindow::countMines(vector<Point> coords) const {
+	int i = 0;
+	for (const auto& tile : coords) {
+		if (MinesweeperWindow::at(tile) -> getIsMine()) {
+			i++;
+		}
+	}
+	return i;
+}
+
+

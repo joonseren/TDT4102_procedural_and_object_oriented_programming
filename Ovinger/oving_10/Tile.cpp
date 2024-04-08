@@ -23,12 +23,13 @@ void Tile::setIsMine(bool input) {
 
 void Tile::open() {
 	if ((state == Cell::closed) && getIsMine()) {
+		setButtonColor(TDT4102::Color::black);
 		set_label_color(TDT4102::Color::red);
 		set_label("X"); 
 		state = Cell::open;
 	}
 	else if (state == Cell::closed) {
-		set_label_color(TDT4102::Color::white);
+		setButtonColor(TDT4102::Color::white);
 		state = Cell::open;
 	} else {
 		std::cout << "nothing happens" << std::endl;
