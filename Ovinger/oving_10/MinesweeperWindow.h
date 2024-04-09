@@ -41,5 +41,8 @@ private:
 
 	// callback funksjoner til Tile knappene
 	void cb_click();
-	
+
+	void gameLost();
+	void gameWon();
+	int remainingTiles(vector<shared_ptr<Tile>> tiles);
 };

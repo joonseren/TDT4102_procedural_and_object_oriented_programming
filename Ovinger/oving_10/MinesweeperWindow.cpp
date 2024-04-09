@@ -54,8 +54,16 @@ void MinesweeperWindow::openTile(Point xy) {
 		return;
 	}
 
+	std::cout << MinesweeperWindow::remainingTiles(tiles) << std::endl;
+	
 	MinesweeperWindow::at(xy) -> open();
-	if (!MinesweeperWindow::at(xy) -> getIsMine()) {
+	if (MinesweeperWindow::at(xy) -> getIsMine()) {
+		MinesweeperWindow::gameLost();
+	}
+
+	if (MinesweeperWindow::remainingTiles(tiles) == 0) {
+			//MinesweeperWindow::gameWon();
+		} else {
 		std::vector<Point> adjPoints = MinesweeperWindow::adjacentPoints(xy);
 		int mines = MinesweeperWindow::countMines(adjPoints);
 		if (mines > 0) {
@@ -64,6 +72,9 @@ void MinesweeperWindow::openTile(Point xy) {
 			for (const auto& tile : adjPoints) {
 				MinesweeperWindow::openTile(tile);
 			}
+		} 
+		if (MinesweeperWindow::remainingTiles(tiles) < 5) {
+			MinesweeperWindow::gameWon();
 		}
 	} 
 }
@@ -100,4 +111,28 @@ int MinesweeperWindow::countMines(vector<Point> coords) const {
 	return i;
 }
 
+void MinesweeperWindow::gameLost() {
+	for (const auto& p : tiles) {
+		p -> open();
+	}
 
+	std::cout << "Du tapte sucker" << std::endl;
+}
+
+int MinesweeperWindow::remainingTiles(vector<shared_ptr<Tile>> tiles) {
+	int i = -1;
+	for (const auto& p : tiles) {
+		if (p -> getState() != Cell::open) {
+			i++;
+		}
+	}
+	
+	return i - height*width; 
+}
+
+void MinesweeperWindow::gameWon() {
+	for (const auto& p : tiles) {
+		p -> open();
+	}
+	std::cout << "Du vant din kuk " << std::endl;
+}
