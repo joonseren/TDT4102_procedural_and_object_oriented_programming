@@ -3,7 +3,7 @@
 
 MinesweeperWindow::MinesweeperWindow(int x, int y, int width, int height, int mines, const string &title) : 
 	// Initialiser medlemsvariabler, bruker konstruktoren til AnimationWindow-klassen
-	AnimationWindow{x, y, width * cellSize, (height + 1) * cellSize, title},
+	AnimationWindow{x, y, width * cellSize, (height + 1) * cellSize + 100, title},
 	width{width}, height{height}, mines{mines}
 {
 	// Legg til alle tiles i vinduet
@@ -53,29 +53,25 @@ void MinesweeperWindow::openTile(Point xy) {
 	if (MinesweeperWindow::at(xy) -> getState() != Cell::closed) {
 		return;
 	}
-
-	std::cout << MinesweeperWindow::remainingTiles(tiles) << std::endl;
 	
 	MinesweeperWindow::at(xy) -> open();
+
 	if (MinesweeperWindow::at(xy) -> getIsMine()) {
 		MinesweeperWindow::gameLost();
 	}
 
-	if (MinesweeperWindow::remainingTiles(tiles) == 0) {
-			//MinesweeperWindow::gameWon();
-		} else {
+	else {
+		gameWon(); 
 		std::vector<Point> adjPoints = MinesweeperWindow::adjacentPoints(xy);
 		int mines = MinesweeperWindow::countMines(adjPoints);
 		if (mines > 0) {
 			MinesweeperWindow::at(xy) -> setAdjMines(mines);
-		} else if (mines == 0) {
+		} 
+		else if (mines == 0) {
 			for (const auto& tile : adjPoints) {
 				MinesweeperWindow::openTile(tile);
 			}
 		} 
-		if (MinesweeperWindow::remainingTiles(tiles) < 5) {
-			MinesweeperWindow::gameWon();
-		}
 	} 
 }
 
@@ -115,24 +111,29 @@ void MinesweeperWindow::gameLost() {
 	for (const auto& p : tiles) {
 		p -> open();
 	}
-
+	//Button youLost({150, 350}, 50, 10, "You Lost");
+	//MinesweeperWindow::add(youLost);
 	std::cout << "Du tapte sucker" << std::endl;
 }
 
 int MinesweeperWindow::remainingTiles(vector<shared_ptr<Tile>> tiles) {
-	int i = -1;
+	int i = 0;
 	for (const auto& p : tiles) {
 		if (p -> getState() != Cell::open) {
 			i++;
 		}
 	}
 	
-	return i - height*width; 
+	return i; 
 }
 
 void MinesweeperWindow::gameWon() {
-	for (const auto& p : tiles) {
-		p -> open();
-	}
-	std::cout << "Du vant din kuk " << std::endl;
+	if (MinesweeperWindow::remainingTiles(tiles) == mines) {
+		for (const auto& p : tiles) {
+			p -> open();
+		}
+		Button youWon({150, 350}, 50, 10, "You Won");
+		MinesweeperWindow::add(youWon);
+		std::cout << "Du vant din kuk " << std::endl;
+	} 	
 }
