@@ -3,8 +3,11 @@
 
 MinesweeperWindow::MinesweeperWindow(int x, int y, int width, int height, int mines, const string &title) : 
 	// Initialiser medlemsvariabler, bruker konstruktoren til AnimationWindow-klassen
-	AnimationWindow{x, y, width * cellSize, (height + 1) * cellSize + 100, title},
-	width{width}, height{height}, mines{mines}
+	AnimationWindow{x, y, width * cellSize + 5, (height + 1) * cellSize + 100, title},
+	width{width}, height{height}, mines{mines},
+	gameButton({0, 310}, 120, 30, "Let's go!"),
+	restartButton({120, 310}, 100, 30, "Restart"),
+	flaggedCount({230, 310}, 100, 30, "0")
 {
 	// Legg til alle tiles i vinduet
 	for (int i = 0; i < height; ++i) {
@@ -30,6 +33,10 @@ MinesweeperWindow::MinesweeperWindow(int x, int y, int width, int height, int mi
 		i++;
 		}
 	}
+
+	add(gameButton);
+	add(restartButton);
+	add(flaggedCount);
 }
 
 vector<Point> MinesweeperWindow::adjacentPoints(Point xy) const {
@@ -78,6 +85,7 @@ void MinesweeperWindow::openTile(Point xy) {
 void MinesweeperWindow::flagTile(Point xy) {
 	if (MinesweeperWindow::at(xy) -> getState() != Cell::open) {
 		MinesweeperWindow::at(xy) -> flag();
+		flaggedCount.setText("Flags: " + MinesweeperWindow::countFlags()); 
 	}
 }
 
@@ -111,8 +119,7 @@ void MinesweeperWindow::gameLost() {
 	for (const auto& p : tiles) {
 		p -> open();
 	}
-	//Button youLost({150, 350}, 50, 10, "You Lost");
-	//MinesweeperWindow::add(youLost);
+	gameButton.setText("You Lost :("); 
 	std::cout << "Du tapte sucker" << std::endl;
 }
 
@@ -132,8 +139,21 @@ void MinesweeperWindow::gameWon() {
 		for (const auto& p : tiles) {
 			p -> open();
 		}
-		Button youWon({150, 350}, 50, 10, "You Won");
-		MinesweeperWindow::add(youWon);
-		std::cout << "Du vant din kuk " << std::endl;
+
+		gameButton.setText("You Won :)"); 
+		//std::cout << "Du vant din kuk " << std::endl;
 	} 	
 }
+
+
+std::string MinesweeperWindow::countFlags() {
+	int i = 0;
+	for (shared_ptr<Tile> p : tiles) {
+		if (p -> getState() == Cell::flagged) {
+			i++;
+		}
+	}
+	std::string x = std::to_string(i); 
+	return x; 
+}
+

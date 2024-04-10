@@ -10,7 +10,7 @@ class Person {
 private:
     std::string name;
     std::string email;
-
+    
 public:
     std::unique_ptr<Car> personCar;
     Person(std::string n, std::string mail, std::unique_ptr<Car> pCar) : name(n), email(mail), personCar(std::move(pCar)) {}

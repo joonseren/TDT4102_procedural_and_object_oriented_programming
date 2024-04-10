@@ -34,7 +34,7 @@ void Tile::open() {
 	} else if (state == Cell::flagged && getIsMine()) {
 		setButtonColor(TDT4102::Color::white);
 		set_label_color(TDT4102::Color::red);
-		set_label("X"); 
+		set_label("X");
 	}
 }
 

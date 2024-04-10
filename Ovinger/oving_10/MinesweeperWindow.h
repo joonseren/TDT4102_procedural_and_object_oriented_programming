@@ -2,6 +2,9 @@
 #include "AnimationWindow.h"
 #include "Tile.h"
 #include <random>
+#include "widgets/TextInput.h"
+#include "widgets/Button.h"
+
 
 
 using namespace std;
@@ -18,6 +21,10 @@ private:
 	const int height;		// Hoyde i antall tiles
 	const int mines;		// Antall miner
 	vector<shared_ptr<Tile>> tiles; // Vektor som inneholder alle tiles
+
+	TDT4102::TextInput gameButton; 
+	TDT4102::Button restartButton;
+	TDT4102::TextInput flaggedCount; 
 
 	// hoyde og bredde i piksler
 	int Height() const { return height * cellSize; } 
@@ -46,4 +53,5 @@ private:
 	void gameLost();
 	void gameWon();
 	int remainingTiles(vector<shared_ptr<Tile>> tiles);
+	std::string countFlags();
 };
