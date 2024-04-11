@@ -35,5 +35,5 @@ public:
 	Cell getState() const { return state; };
 	void setState(Cell newState);
 	void setAdjMines(int n);
-
+	void resetTile();
 };

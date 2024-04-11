@@ -24,7 +24,8 @@ private:
 
 	TDT4102::TextInput gameButton; 
 	TDT4102::Button restartButton;
-	TDT4102::TextInput flaggedCount; 
+	TDT4102::TextInput flaggedCount;
+	TDT4102::Button quitButton;
 
 	// hoyde og bredde i piksler
 	int Height() const { return height * cellSize; } 
@@ -56,4 +57,5 @@ private:
 	std::string countFlags();
 	void setMines();
 	void restartGame();
+	void cbQuit();
 };

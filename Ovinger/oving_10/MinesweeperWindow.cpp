@@ -7,7 +7,8 @@ MinesweeperWindow::MinesweeperWindow(int x, int y, int width, int height, int mi
 	width{width}, height{height}, mines{mines},
 	gameButton({0, 310}, 120, 30, "Let's go!"),
 	restartButton({115, 310}, 100, 30, "Restart"),
-	flaggedCount({210, 310}, 100, 30, "Flags: 0")
+	flaggedCount({210, 310}, 100, 30, "Flags: 0"),
+	quitButton({0, 350}, 100, 30, "Quit")
 {
 	// Legg til alle tiles i vinduet
 	for (int i = 0; i < height; ++i) {
@@ -23,7 +24,10 @@ MinesweeperWindow::MinesweeperWindow(int x, int y, int width, int height, int mi
 
 	add(gameButton);
 	add(restartButton);
+	restartButton.setCallback(std::bind(&MinesweeperWindow::restartGame, this));
 	add(flaggedCount);
+	add(quitButton);
+	quitButton.setCallback(std::bind(&MinesweeperWindow::cbQuit, this));
 }
 
 void MinesweeperWindow::setMines() {
@@ -161,8 +165,13 @@ std::string MinesweeperWindow::countFlags() {
 }
 
 void MinesweeperWindow::restartGame() {
-	//sette alle tiles til closed
-	//fjerne alle miner
-	//legge til miner
-	
+	for (const auto& tile : tiles) {
+		tile -> resetTile();
+	}
+	setMines();
+
+}
+
+void MinesweeperWindow::cbQuit() {
+	MinesweeperWindow::close();
 }

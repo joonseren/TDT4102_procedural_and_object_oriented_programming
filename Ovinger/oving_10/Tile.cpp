@@ -60,3 +60,10 @@ void Tile::setAdjMines(int n) {
 void Tile::setState(Cell newState) {
 	state = newState;
 }
+
+void Tile::resetTile() {
+	setState(Cell::closed);
+	setIsMine(false);
+	setButtonColor(TDT4102::Color::silver);
+	set_label(" ");
+}
