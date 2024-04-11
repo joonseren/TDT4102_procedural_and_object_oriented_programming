@@ -33,5 +33,7 @@ public:
 	void open();
 	void flag();
 	Cell getState() const { return state; };
+	void setState(Cell newState);
 	void setAdjMines(int n);
+
 };

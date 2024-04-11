@@ -54,4 +54,6 @@ private:
 	void gameWon();
 	int remainingTiles(vector<shared_ptr<Tile>> tiles);
 	std::string countFlags();
+	void setMines();
+	void restartGame();
 };

@@ -56,3 +56,7 @@ void Tile::setAdjMines(int n) {
 		set_label(std::to_string(n));
 	}
 }
+
+void Tile::setState(Cell newState) {
+	state = newState;
+}

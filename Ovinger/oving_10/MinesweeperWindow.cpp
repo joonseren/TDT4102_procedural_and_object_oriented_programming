@@ -6,8 +6,8 @@ MinesweeperWindow::MinesweeperWindow(int x, int y, int width, int height, int mi
 	AnimationWindow{x, y, width * cellSize + 5, (height + 1) * cellSize + 100, title},
 	width{width}, height{height}, mines{mines},
 	gameButton({0, 310}, 120, 30, "Let's go!"),
-	restartButton({120, 310}, 100, 30, "Restart"),
-	flaggedCount({230, 310}, 100, 30, "0")
+	restartButton({115, 310}, 100, 30, "Restart"),
+	flaggedCount({210, 310}, 100, 30, "Flags: 0")
 {
 	// Legg til alle tiles i vinduet
 	for (int i = 0; i < height; ++i) {
@@ -18,8 +18,15 @@ MinesweeperWindow::MinesweeperWindow(int x, int y, int width, int height, int mi
 			add(*temp); 
 		}
 	}
-	// Legg til miner på tilfeldige posisjoner
+	// Legg til miner på tilfeldige posi<sjoner
+	setMines();
 
+	add(gameButton);
+	add(restartButton);
+	add(flaggedCount);
+}
+
+void MinesweeperWindow::setMines() {
 	int i = 0;
 	while (i < mines) {
 		std::random_device rd;
@@ -29,14 +36,10 @@ MinesweeperWindow::MinesweeperWindow(int x, int y, int width, int height, int mi
 
 		if (!tiles.at(minePosition) -> getIsMine()) {
 			tiles.at(minePosition) -> setIsMine(true);
-			tiles.at(minePosition) -> setButtonColor(TDT4102::Color::sky_blue);
+			//tiles.at(minePosition) -> setButtonColor(TDT4102::Color::sky_blue);
 		i++;
 		}
 	}
-
-	add(gameButton);
-	add(restartButton);
-	add(flaggedCount);
 }
 
 vector<Point> MinesweeperWindow::adjacentPoints(Point xy) const {
@@ -157,3 +160,9 @@ std::string MinesweeperWindow::countFlags() {
 	return x; 
 }
 
+void MinesweeperWindow::restartGame() {
+	//sette alle tiles til closed
+	//fjerne alle miner
+	//legge til miner
+	
+}
