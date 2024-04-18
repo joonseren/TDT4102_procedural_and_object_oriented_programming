@@ -2,4 +2,7 @@
 
 #include "Stopwatch.h"
 
-void iterationFunction(const double n);
+void iterationFunction(int size);
+void iterationFunction2(int size);
+void iterationFunction3(int size);
+void iterationFunction4(int size);
