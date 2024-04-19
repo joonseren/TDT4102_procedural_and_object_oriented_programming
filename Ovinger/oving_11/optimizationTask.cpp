@@ -17,11 +17,9 @@ void setDiagonalValue(std::vector<std::vector<double>>& matrix, double newValue)
 
 double sumMatrix(std::vector<std::vector<double>> matrix){
     double sum;
-    for (int col = 0; col < matrix.size(); col++){
-        for (int row = 0; row < matrix.size(); row++){
-            double value = matrix.at(row).at(col);
-            sum += value;            
-        }
+    for (int i = 0; i < matrix.size() && i < matrix.at(i).size(); i++) {
+        double value = matrix.at(i).at(i); 
+        sum += value;            
     }
     return sum;
 }
@@ -32,9 +30,10 @@ void optimizationTask() {
 
     // Create a matrix with zeros
     std::vector<std::vector<double>> matrix;
-    
+    matrix.reserve(matrixSize);
     for (int i = 0; i < matrixSize; i++){
         std::vector<double> column;
+        column.reserve(matrixSize);
         for (int j = 0; j < matrixSize; j++){
             column.push_back(0.0);
         }

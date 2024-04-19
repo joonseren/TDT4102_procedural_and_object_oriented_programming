@@ -58,24 +58,59 @@ Measure the time it takes to initialize a `std::unique_ptr` and a `std::shared_p
 
 This data provides a clear illustration of the performance differences between pointer initialization and memory allocation strategies across a range of operation scales.
 
-## Task 2
->What happens when the size surpasses the capasy?
-It doubleas the capasty for every times it surpassse. 1, 2, 4, 8, 16, 32, 64, ...
+## Task 2: Vector Operations and Memory Management
 
-> What happens when using vec.reserve(20)?
-The capaxity stays constant at 20, and the length is as before
+### Questions and Answers
 
-> What happens if vec.resize() is used?
-It appers that the length and capacity starts at 20, and the length is increasing by iteratoins, the capacity is doubled when it surpassed the capacity
+- **What happens when the size surpasses the capacity?**
+  - The capacity doubles each time it is surpassed (1, 2, 4, 8, 16, 32, 64, ...).
 
-> 1000000 elements in a std:::vector:
+- **What happens when using `vec.reserve(20)`?**
+  - The capacity is set to 20, while the length remains as before, unaffected by this operation.
 
-Without optimiztion improvements
-Iterations: 1000000
-Time: 0.028078s
-Average time per iteration: 2.8078e-08s
+- **What happens if `vec.resize()` is used?**
+  - Both the length and capacity start at 20. The length increases with each iteration, and the capacity doubles when surpassed.
 
-With optimiztion improvements: reserve(n)
-Iterations: 1000000
-Time: 0.01438s
-Average time per iteration: 1.438e-08s
+### Performance with 1,000,000 Elements in a `std::vector`
+
+- **Without Optimization Improvements:**
+  - **Iterations:** 1,000,000
+  - **Total Time:** 0.028078s
+  - **Average Time per Iteration:** 2.8078e-08s
+
+- **With Optimization Improvements (`reserve(n)`):**
+  - **Iterations:** 1,000,000
+  - **Total Time:** 0.01438s
+  - **Average Time per Iteration:** 1.438e-08s
+
+- **With Optimization Improvements (`resize(n)`):**
+  - **Iterations:** 1,000,000
+  - **Total Time:** 0.033826s
+  - **Average Time per Iteration:** 3.3826e-08s
+
+### Analysis
+
+- **Using `reserve()` is the fastest method**, showing significant performance gains by pre-allocating memory, thus reducing the need for frequent memory reallocation.
+
+
+## Task 3
+>Take the time before optimization
+
+Time: 8.16793 s.
+
+>Optimaze as much as you can, comment and take the time for every change.
+1. Added ```matrix.reserve(matrixSize);``` before creating the matrix. Reserving memory that is needed. Time: 7.96011 s.
+
+2. Added `column.reserve(matrixSize);`before creating each column in matrix. column. Time: 5.9243 s.
+
+3. Changed the nested for-loop in sumMatrix to a singel for-loop.
+```cpp
+double sumMatrix(std::vector<std::vector<double>> matrix){
+    double sum;
+    for (int i = 0; i < matrix.size() && i < matrix.at(i).size(); i++) {
+        double value = matrix.at(i).at(i); 
+        sum += value;            
+    }
+    return sum;
+}
+```
