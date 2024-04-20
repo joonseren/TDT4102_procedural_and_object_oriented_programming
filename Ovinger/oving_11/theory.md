@@ -103,7 +103,7 @@ Time: 8.16793 s.
 
 2. Added `column.reserve(matrixSize);`before creating each column in matrix. column. Time: 5.9243 s.
 
-3. Changed the nested for-loop in sumMatrix to a singel for-loop.
+3. Changed the nested for-loop in sumMatrix to a singel for-loop. Time: 3.77251 s
 ```cpp
 double sumMatrix(std::vector<std::vector<double>> matrix){
     double sum;
@@ -114,3 +114,6 @@ double sumMatrix(std::vector<std::vector<double>> matrix){
     return sum;
 }
 ```
+
+> Turn on compilator-optimaztion:
+Time: 0.605491s! Thats an improvement!

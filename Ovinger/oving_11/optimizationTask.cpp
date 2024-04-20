@@ -5,7 +5,7 @@
 // Utdelt kode til oppgave 3
 
 void setDiagonalValue(std::vector<std::vector<double>>& matrix, double newValue){
-    for (int row = 0; row < matrix.size(); row++){
+    for (int row = 0; row < matrix.size(); row++) {
         for (int col = 0; col < matrix.size(); col++){
             bool isDiagonal = (row == col);
             if (isDiagonal){
