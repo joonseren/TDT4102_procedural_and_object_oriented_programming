@@ -3,6 +3,7 @@
 #include "measurePerformance.h"
 #include "vectorOptimization.h"
 #include "optimizationTask.h"
+#include "MyArray.h"
 #include <random>
 
 
@@ -59,7 +60,16 @@ int main() {
     /// Task 4:
     // std::cout << maximum<double>(2.0, 3.0) << std::endl;
 
-    std::vector<int> a = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-    printVector(shuffle(a));
+    // std::vector<int> a = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    // printVector(shuffle(a));
+
+    /// Task 5:
+
+    MyArray<double, 5> arr(10);
+
+    for (int i{0}; i < arr.getSize(); i++) {
+        std::cout << arr.at(i) << " ";
+    } std::cout << std::endl;
+
 
 }
