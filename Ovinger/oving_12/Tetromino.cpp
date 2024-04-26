@@ -14,10 +14,7 @@ const std::map<TetrominoType, std::vector<std::vector<int>>> initialMatrixMap {
 };
 
 Tetromino::Tetromino(TDT4102::Point startingPoint, TetrominoType tetType) : 
-topLeftCorner{startingPoint}
-{
-
-}
+topLeftCorner{startingPoint}, matrixSize{int(initialMatrixMap.at(tetType).size())} {};
 
 void Tetromino::rotateCounterClockwise() {
     //Første rotasjon, med hensyn på diagonalen
