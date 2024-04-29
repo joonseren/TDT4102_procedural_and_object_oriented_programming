@@ -13,8 +13,26 @@ const std::map<TetrominoType, std::vector<std::vector<int>>> initialMatrixMap {
     }
 };
 
+Tetromino::Tetromino() : topLeftCorner{0, 0}, matrixSize{0} {};
+
 Tetromino::Tetromino(TDT4102::Point startingPoint, TetrominoType tetType) : 
-topLeftCorner{startingPoint}, matrixSize{int(initialMatrixMap.at(tetType).size())} {};
+topLeftCorner{startingPoint}, matrixSize{int(initialMatrixMap.at(tetType).size())} {
+
+    blockMatrix.resize(matrixSize, std::vector<TetrominoType>(matrixSize, TetrominoType::NONE));
+
+    const auto& initialMatrix = initialMatrixMap.at(tetType);
+
+    for(int row = 0; row < matrixSize; row++) {
+        for(int column = 0; column < row; column++) {
+            if(initialMatrix[row][column] == 1) {
+                blockMatrix[row][column] = TetrominoType::J;
+            } else {
+                blockMatrix[row][column] = TetrominoType::NONE;
+            }
+        }
+    }
+
+};
 
 void Tetromino::rotateCounterClockwise() {
     //Første rotasjon, med hensyn på diagonalen
