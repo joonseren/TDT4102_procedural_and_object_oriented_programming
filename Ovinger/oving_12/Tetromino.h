@@ -1,5 +1,6 @@
 #pragma once
 #include "Point.h"
+#include "Color.h"
 #include <vector>
 
 
@@ -13,7 +14,13 @@ public:
     
     void rotateClockwise();
     void rotateCounterClockwise();
-
+    void moveDown();
+    void moveLeft();
+    void moveRight();
+    bool blockExist(int row, int column);
+    TetrominoType getBlock(int row, int column);
+    int getMatrixSize();
+    TDT4102::Point getPosition();
 
    
 private: 
