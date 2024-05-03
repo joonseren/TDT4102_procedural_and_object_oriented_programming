@@ -3,11 +3,10 @@
 
 
 
-int main()
-{
-	/********************************************************/
-		//Opprett vindu her
-    /********************************************************/
-        //kall run på det her
+int main() {
+	
+	TetrisWindow tw{1, 1, 10, 20, "Tetris"};
+    
+	tw.wait_for_close();
 	return 0;
 }

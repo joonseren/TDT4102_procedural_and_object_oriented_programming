@@ -1,6 +1,15 @@
 #include "TetrisWindow.h"
 #include <iostream>
 
+
+TetrisWindow::TetrisWindow(int x, int y, int width, int height, const std::string &title) : 
+    AnimationWindow{x, y, width * Tetromino::blockSize, height * Tetromino::blockSize, title},
+    height{height}, width{width} 
+    {
+        gridMatrix.resize(height, std::vector<TetrominoType>(width, TetrominoType::NONE));
+
+    }
+
 void TetrisWindow::run() {
     unsigned int framesSinceLastTetronimoMove = 0;
     const unsigned int framesPerTetronimoMove = 20;
@@ -10,7 +19,7 @@ void TetrisWindow::run() {
         if(framesSinceLastTetronimoMove >= framesPerTetronimoMove) {
             framesSinceLastTetronimoMove = 0;
             /********************************************************/
-            //Kall moveTetrominoDown() her
+            //Tetromino::moveDown();
             /********************************************************/
         }
         handleInput();

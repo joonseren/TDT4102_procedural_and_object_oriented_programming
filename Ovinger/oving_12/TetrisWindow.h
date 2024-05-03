@@ -3,17 +3,22 @@
 #include "Tetromino.h"
 #include "widgets/TextInput.h"
 #include "widgets/Button.h"
+#include <iostream>
+#include <string>
 
 class TetrisWindow : public TDT4102::AnimationWindow {
 
 public:
-    TetrisWindow();
+    TetrisWindow(int x, int y, int width, int height, const std::string &title);
     void run();
     
 
 
 private:
-
+    const int width;
+	const int height;	
+    std::vector<std::vector<TetrominoType>> gridMatrix;
+    Tetromino currentTetromino;
     void handleInput();
 
 };

@@ -21,6 +21,7 @@ public:
     TetrominoType getBlock(int row, int column);
     int getMatrixSize();
     TDT4102::Point getPosition();
+    
 
    
 private: 
