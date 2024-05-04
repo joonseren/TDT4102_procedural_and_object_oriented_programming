@@ -2,9 +2,13 @@
 #include "Point.h"
 #include "Color.h"
 #include <vector>
+#include <string>
+#include <map>
 
 
 enum class TetrominoType{J, L, T, S, Z, O, I, NONE};
+
+extern const std::map<TetrominoType, std::vector<std::vector<int>>> initialMatrixMap;
 
 class Tetromino {
 public:

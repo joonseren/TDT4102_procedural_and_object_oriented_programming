@@ -1,14 +1,23 @@
 #include "TetrisWindow.h"
-#include <iostream>
+#include "Tetromino.h"
+
 
 
 TetrisWindow::TetrisWindow(int x, int y, int width, int height, const std::string &title) : 
     AnimationWindow{x, y, width * Tetromino::blockSize, height * Tetromino::blockSize, title},
-    height{height}, width{width} 
+    height{height}, width{width},
+    currentTetromino{generateRandomTetromino()}
     {
         gridMatrix.resize(height, std::vector<TetrominoType>(width, TetrominoType::NONE));
 
     }
+
+Tetromino TetrisWindow::generateRandomTetromino() {
+    std::random_device rd;
+    std::default_random_engine generator(rd());
+    std::uniform_int_distribution <int> distribution(0, static_cast<int>(TetrominoType::I));
+    return initialMatrixMap.at(static_cast<TetrominoType>(distribution(generator)));
+}
 
 void TetrisWindow::run() {
     unsigned int framesSinceLastTetronimoMove = 0;

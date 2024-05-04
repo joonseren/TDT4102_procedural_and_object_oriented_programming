@@ -4,14 +4,14 @@
 #include "widgets/TextInput.h"
 #include "widgets/Button.h"
 #include <iostream>
-#include <string>
+#include <random>
+
 
 class TetrisWindow : public TDT4102::AnimationWindow {
 
 public:
     TetrisWindow(int x, int y, int width, int height, const std::string &title);
     void run();
-    
 
 
 private:
@@ -19,6 +19,7 @@ private:
 	const int height;	
     std::vector<std::vector<TetrominoType>> gridMatrix;
     Tetromino currentTetromino;
+    Tetromino generateRandomTetromino();
     void handleInput();
 
 };
