@@ -4,11 +4,17 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <iostream>
 
 
 enum class TetrominoType{J, L, T, S, Z, O, I, NONE};
 
 extern const std::map<TetrominoType, std::vector<std::vector<int>>> initialMatrixMap;
+
+//extern const std::map<TetrominoType, TDT4102::Color> initialColorMap;
+const std::map<TetrominoType, TDT4102::Color>& getInitialColorMap();
+
+extern const std::map<TetrominoType, char> tetTypeToString;
 
 class Tetromino {
 public:
@@ -25,10 +31,12 @@ public:
     TetrominoType getBlock(int row, int column);
     int getMatrixSize();
     TDT4102::Point getPosition();
+    TetrominoType getType();
     
 
    
-private: 
+private:
+    TetrominoType tetType;
     int matrixSize;
     TDT4102::Point topLeftCorner;
     std::vector<std::vector<TetrominoType>> blockMatrix;

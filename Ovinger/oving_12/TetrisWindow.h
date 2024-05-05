@@ -19,7 +19,8 @@ private:
 	const int height;	
     std::vector<std::vector<TetrominoType>> gridMatrix;
     Tetromino currentTetromino;
-    Tetromino generateRandomTetromino();
+    TetrominoType generateRandomTetromino();
+    void drawCurrentTetromino();
     void handleInput();
 
 };

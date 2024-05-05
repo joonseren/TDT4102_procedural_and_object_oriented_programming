@@ -62,29 +62,46 @@ const std::map<TetrominoType, std::vector<std::vector<int>>> initialMatrixMap {
 
 };
 
-const std::map<TetrominoType, TDT4102::Color> initialColorMap {
-    {TetrominoType::J, TDT4102::Color::blue},
-    {TetrominoType::L, TDT4102::Color::orange},
-    {TetrominoType::T, TDT4102::Color::purple},
-    {TetrominoType::S, TDT4102::Color::green},
-    {TetrominoType::Z, TDT4102::Color::red},
-    {TetrominoType::O, TDT4102::Color::yellow},
-    {TetrominoType::I, TDT4102::Color::turquoise},
+const std::map<TetrominoType, TDT4102::Color>& getInitialColorMap() {
+    static const std::map<TetrominoType, TDT4102::Color> initialColorMap = {
+        {TetrominoType::J, TDT4102::Color::blue},
+        {TetrominoType::L, TDT4102::Color::orange},
+        {TetrominoType::T, TDT4102::Color::purple},
+        {TetrominoType::S, TDT4102::Color::green},
+        {TetrominoType::Z, TDT4102::Color::red},
+        {TetrominoType::O, TDT4102::Color::yellow},
+        {TetrominoType::I, TDT4102::Color::turquoise},
+        {TetrominoType::NONE, TDT4102::Color::light_gray}
+    };
+    return initialColorMap;
+}
+
+const std::map<TetrominoType, char> tetTypeToString {
+    {TetrominoType::J, 'J'},
+    {TetrominoType::L, 'L'},
+    {TetrominoType::T, 'T'},
+    {TetrominoType::S, 'S'},
+    {TetrominoType::Z, 'Z'},
+    {TetrominoType::O, 'O'},
+    {TetrominoType::I, 'I'},
+    {TetrominoType::NONE, 'N'},
 };
 
 Tetromino::Tetromino() : topLeftCorner{0, 0}, matrixSize{0} {};
 
-Tetromino::Tetromino(TDT4102::Point startingPoint, TetrominoType tetType) : 
-topLeftCorner{startingPoint}, matrixSize{int(initialMatrixMap.at(tetType).size())} {
+Tetromino::Tetromino(TDT4102::Point startingPoint, TetrominoType type) : 
+topLeftCorner{startingPoint}, 
+matrixSize{int(initialMatrixMap.at(type).size())}, 
+tetType{type} {
 
     blockMatrix.resize(matrixSize, std::vector<TetrominoType>(matrixSize, TetrominoType::NONE));
 
-    const auto& initialMatrix = initialMatrixMap.at(tetType);
+    const auto& initialMatrix = initialMatrixMap.at(type);
 
     for(int row = 0; row < matrixSize; row++) {
-        for(int column = 0; column < row; column++) {
+        for(int column = 0; column < matrixSize; column++) {
             if(initialMatrix[row][column] == 1) {
-                blockMatrix[row][column] = tetType;
+                blockMatrix[row][column] = type;
             } else {
                 blockMatrix[row][column] = TetrominoType::NONE;
             }
@@ -155,4 +172,9 @@ int Tetromino::getMatrixSize() {
 TDT4102::Point Tetromino::getPosition() {
     return topLeftCorner;
 }
+
+TetrominoType Tetromino::getType() {
+    return tetType;
+}
+
 
