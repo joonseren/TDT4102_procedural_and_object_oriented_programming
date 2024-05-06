@@ -21,6 +21,7 @@ private:
     Tetromino currentTetromino;
     TetrominoType generateRandomTetromino();
     void drawCurrentTetromino();
+    void drawBackground();
     void handleInput();
 
 };
