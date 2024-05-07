@@ -23,5 +23,7 @@ private:
     void drawCurrentTetromino();
     void drawBackground();
     void handleInput();
+    void moveTetrominoDown();
+    
 
 };

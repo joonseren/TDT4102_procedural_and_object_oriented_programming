@@ -55,7 +55,7 @@ void TetrisWindow::run() {
         if(framesSinceLastTetronimoMove >= framesPerTetronimoMove) {
             framesSinceLastTetronimoMove = 0;
             /********************************************************/
-            //Tetromino::moveDown();
+            moveTetrominoDown();
             /********************************************************/
         }
         handleInput();
@@ -82,31 +82,34 @@ void TetrisWindow::handleInput() {
     bool currentRightKeyState = is_key_down(KeyboardKey::RIGHT);
     bool currentLeftKeyState = is_key_down(KeyboardKey::LEFT);
     bool currentDownKeyState = is_key_down(KeyboardKey::DOWN);
-
+    bool insideWindow = currentTetromino.getPosition().x > -(Tetromino::blockSize + 1) && currentTetromino.getPosition().x < (width - currentTetromino.getMatrixSize())*Tetromino::blockSize;
     
-    if(currentZKeyState && !lastZKeyState) {
-        currentTetromino.rotateCounterClockwise();
-        std::cout << "Hello from z\n";
+    if (!insideWindow) {
+        if (currentTetromino.getPosition().x < 0) {
+            currentTetromino.setPosition(0, currentTetromino.getPosition().y);
+        }
+    } else {    
+        if(currentZKeyState && !lastZKeyState) {
+            currentTetromino.rotateCounterClockwise();
 
-    }
+        }
 
-    if(currentUpKeyState && !lastUpKeyState) {
-        currentTetromino.rotateClockwise();
-        std::cout << "Hello from up\n";
-    }
+        if(currentUpKeyState && !lastUpKeyState) {
+            currentTetromino.rotateClockwise();
+        }
 
-    if (currentRightKeyState && !lastRightKeyState) {
-        currentTetromino.moveRight();
-    }
+        if (currentRightKeyState && !lastRightKeyState) {
+            currentTetromino.moveRight();
+        }
 
-    if (currentLeftKeyState && !lastLeftKeyState) {
-        currentTetromino.moveLeft();
-    }
+        if (currentLeftKeyState && !lastLeftKeyState) {
+            currentTetromino.moveLeft();
+        }
 
-    if (currentDownKeyState && !lastDownKeyState) {
-        currentTetromino.moveDown();
+        if (currentDownKeyState && !lastDownKeyState) {
+            currentTetromino.moveDown();
+        }
     }
-    
 
 
     lastZKeyState = currentZKeyState;
@@ -116,3 +119,8 @@ void TetrisWindow::handleInput() {
     lastDownKeyState = currentDownKeyState;
 }
 
+void TetrisWindow::moveTetrominoDown() {
+    if (currentTetromino.getPosition().y < (height -  currentTetromino.getMatrixSize())*Tetromino::blockSize) {
+        currentTetromino.moveDown();
+    }
+}

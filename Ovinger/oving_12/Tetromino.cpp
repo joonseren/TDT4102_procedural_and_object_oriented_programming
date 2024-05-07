@@ -177,4 +177,6 @@ TetrominoType Tetromino::getType() {
     return tetType;
 }
 
-
+void Tetromino::setPosition(int x, int y) {
+    topLeftCorner = {x, y};
+}

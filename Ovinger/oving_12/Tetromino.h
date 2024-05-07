@@ -32,6 +32,7 @@ public:
     int getMatrixSize();
     TDT4102::Point getPosition();
     TetrominoType getType();
+    void setPosition(int x, int y);
     
 
    
