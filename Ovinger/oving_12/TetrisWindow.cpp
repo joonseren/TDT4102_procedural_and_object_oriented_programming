@@ -9,12 +9,12 @@ TetrisWindow::TetrisWindow(int x, int y, int width, int height, const std::strin
     currentTetromino{Tetromino({0, 0}, generateRandomTetromino())}
     {
         gridMatrix.resize(height, std::vector<TetrominoType>(width, TetrominoType::NONE));
-        draw_rectangle({0, 0}, width * Tetromino::blockSize, height * Tetromino::blockSize, TDT4102::Color::light_gray, TDT4102::Color::black);
         drawBackground();
         drawCurrentTetromino();
     }
 
 void TetrisWindow::drawBackground() {
+    draw_rectangle({0, 0}, width * Tetromino::blockSize, height * Tetromino::blockSize, TDT4102::Color::light_gray, TDT4102::Color::black);
     for (int i{0}; i < width; i++) {
         int x = Tetromino::blockSize + i*Tetromino::blockSize;
         int y1 = 0;
@@ -47,10 +47,13 @@ void TetrisWindow::drawCurrentTetromino() {
 }
 
 void TetrisWindow::run() {
+    std::cout << "Grid-size: " << gridMatrix.size() << std::endl;
+    std::cout << "Matrix-size: " << currentTetromino.getMatrixSize() << std::endl;
     unsigned int framesSinceLastTetronimoMove = 0;
     const unsigned int framesPerTetronimoMove = 20;
 
     while(!should_close()) { 
+        drawBackground();
         framesSinceLastTetronimoMove++;
         if(framesSinceLastTetronimoMove >= framesPerTetronimoMove) {
             framesSinceLastTetronimoMove = 0;
@@ -120,7 +123,7 @@ void TetrisWindow::handleInput() {
 }
 
 void TetrisWindow::moveTetrominoDown() {
-    if (currentTetromino.getPosition().y < (height -  currentTetromino.getMatrixSize())*Tetromino::blockSize) {
+    if (currentTetromino.getPosition().y < (gridMatrix.size() - currentTetromino.getMatrixSize())*Tetromino::blockSize) {
         currentTetromino.moveDown();
     }
 }

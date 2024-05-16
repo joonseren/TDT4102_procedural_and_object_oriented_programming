@@ -5,7 +5,8 @@
 
 int main() {
 	
-	TetrisWindow tw{500, 500, 10, 20, "Tetris"};
+	TetrisWindow tw{500, 500, 10, 30, "Tetris"};
 	tw.run();
+	
 	return 0;
 }
