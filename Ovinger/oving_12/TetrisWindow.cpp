@@ -127,3 +127,11 @@ void TetrisWindow::moveTetrominoDown() {
         currentTetromino.moveDown();
     }
 }
+
+void TetrisWindow::fastenTetromino() {
+    for (int row{0}; row < currentTetromino.getMatrixSize(); row ++) {
+        for (int column{0}; column < currentTetromino.getMatrixSize(); column++) {
+            
+        }
+    }
+}

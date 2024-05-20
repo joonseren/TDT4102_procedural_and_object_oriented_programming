@@ -24,6 +24,7 @@ private:
     void drawBackground();
     void handleInput();
     void moveTetrominoDown();
+    void fastenTetromino();
     
 
 };
